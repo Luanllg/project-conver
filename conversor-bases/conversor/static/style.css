@@ -1,0 +1,74 @@
+:root {
+  --papel: #f3f1ec; --tinta: #1b2330; --suave: #5a6472; --linha: #d6d2c8;
+  --decimal: #f2a38b; --binario: #f4d27a; --hexadecimal: #8fcfa3; --octal: #9db8e8;
+  --foco: #1f4fd8;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--papel); color: var(--tinta);
+  font: 17px/1.6 "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  min-height: 100vh; display: flex; flex-direction: column; }
+main { flex: 1; }
+h1, h2 { line-height: 1.15; margin: 0 0 .5em; font-family: Georgia, "Times New Roman", serif; }
+h1 { font-size: clamp(2rem, 5vw, 3.2rem); }
+h2 { font-size: 1.3rem; }
+code, input, .modal-resultado, .heroi-codigo { font-family: ui-monospace, Consolas, Menlo, monospace; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--foco); outline-offset: 2px; }
+
+.topo { display: flex; flex-wrap: wrap; gap: .5rem 2rem; justify-content: space-between;
+  align-items: center; padding: 1rem clamp(1rem, 4vw, 3rem); border-bottom: 1px solid var(--linha); }
+.marca { font: 700 1.2rem Georgia, serif; text-decoration: none; }
+.topo nav { display: flex; gap: 1.5rem; }
+.topo nav a { text-decoration: none; padding: .2rem 0; border-bottom: 2px solid transparent; }
+.topo nav a:hover, .topo nav a[aria-current] { border-bottom-color: var(--tinta); }
+.rodape { padding: 1.5rem; text-align: center; color: var(--suave); font-size: .9rem; border-top: 1px solid var(--linha); }
+
+.heroi, .pagina-estreita, .pagina-larga, .grade-texto { padding: 3rem clamp(1rem, 4vw, 3rem); }
+.heroi, .pagina-estreita { max-width: 52rem; margin: 0 auto; }
+.pagina-larga { max-width: 72rem; margin: 0 auto; }
+.heroi-codigo { font-size: clamp(1rem, 3.2vw, 1.6rem); color: var(--suave); margin: 0 0 1rem; }
+.lead { color: var(--suave); max-width: 40rem; }
+
+.botao { display: inline-block; background: var(--tinta); color: var(--papel); border: 0;
+  padding: .7rem 1.4rem; border-radius: 6px; font: inherit; text-decoration: none; cursor: pointer; }
+.botao:hover { background: #2f3b4e; }
+
+.grade-texto { max-width: 72rem; margin: 0 auto; display: grid; gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
+.grade-texto article { border-top: 3px solid var(--tinta); padding-top: .8rem; }
+.grade-texto article:nth-child(1) { border-color: var(--binario); }
+.grade-texto article:nth-child(2) { border-color: var(--decimal); }
+.grade-texto article:nth-child(3) { border-color: var(--hexadecimal); }
+.grade-texto article:nth-child(4) { border-color: var(--octal); }
+
+.integrantes { list-style: none; padding: 0; margin: 2rem 0 0; }
+.integrantes li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .3rem 2rem;
+  padding: 1rem 0; border-bottom: 1px solid var(--linha); }
+.integrantes span { color: var(--suave); }
+
+.caixas { display: grid; gap: 1.25rem; margin-top: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
+.caixa { background: #fff; border: 1px solid var(--linha); border-radius: 8px; overflow: hidden; padding: 0 0 1.25rem; }
+.caixa h2 { margin: 0 0 1rem; padding: .8rem 1.25rem; }
+.caixa > :not(h2) { margin-left: 1.25rem; margin-right: 1.25rem; }
+.caixa-decimal h2 { background: var(--decimal); }
+.caixa-binario h2 { background: var(--binario); }
+.caixa-hexadecimal h2 { background: var(--hexadecimal); }
+.caixa-octal h2 { background: var(--octal); }
+.caixa label { display: block; font-size: .9rem; color: var(--suave); }
+.caixa input { width: calc(100% - 2.5rem); padding: .6rem .7rem; font-size: 1.1rem;
+  border: 1px solid var(--suave); border-radius: 6px; background: #fff; }
+.erro { color: #b3261e; font-size: .9rem; margin-top: .5rem; margin-bottom: 0; }
+.destinos { display: grid; gap: .5rem; margin-top: 1rem; }
+.destinos button { text-align: left; padding: .55rem .8rem; font: inherit; background: var(--papel);
+  border: 1px solid var(--linha); border-radius: 6px; cursor: pointer; }
+.destinos button:hover { border-color: var(--tinta); }
+
+dialog { border: 0; border-radius: 10px; padding: 1.75rem 2rem; width: min(26rem, 92vw); }
+dialog::backdrop { background: rgb(27 35 48 / .55); }
+.modal-entrada { color: var(--suave); margin: 0; overflow-wrap: anywhere; }
+.modal-resultado { font-size: 1.6rem; font-weight: 700; margin: .25rem 0 1.5rem; overflow-wrap: anywhere; }
+@media (prefers-reduced-motion: no-preference) {
+  dialog[open] { animation: abrir .18s ease-out; }
+  @keyframes abrir { from { opacity: 0; transform: translateY(8px); } }
+}

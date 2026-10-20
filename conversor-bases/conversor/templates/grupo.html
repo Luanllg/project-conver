@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block titulo %}Grupo{% endblock %}
+{% block conteudo %}
+<section class="pagina-estreita">
+  <h1>Quem fez este projeto</h1>
+  <p class="lead">Atividade prática de Redes de Computadores 1, com o professor Fábio Corsini.</p>
+  <ul class="integrantes">
+    {% for i in integrantes %}
+    <li><strong>{{ i.nome }}</strong><span>{{ i.parte }}</span></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

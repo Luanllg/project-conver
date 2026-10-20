@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block titulo %}Conversor{% endblock %}
+{% block conteudo %}
+<section class="pagina-larga">
+  <h1>Converter números</h1>
+  <p class="lead">Digite o valor na caixa da base de origem e escolha o destino.</p>
+  <div class="caixas">
+    {% for c in caixas %}
+    <form class="caixa caixa-{{ c.origem }}" data-origem="{{ c.origem }}" novalidate>
+      <h2>{{ nomes[c.origem] }}</h2>
+      <label for="in-{{ c.origem }}">Valor em {{ nomes[c.origem]|lower }}</label>
+      <input id="in-{{ c.origem }}" type="text" autocomplete="off" spellcheck="false" inputmode="text">
+      <p class="erro" role="alert" hidden></p>
+      <div class="destinos">
+        {% for d in c.destinos %}
+        <button type="button" data-destino="{{ d }}">Para {{ nomes[d]|lower }}{% if d == 'octal' or c.origem == 'octal' %} (extra){% endif %}</button>
+        {% endfor %}
+      </div>
+    </form>
+    {% endfor %}
+  </div>
+</section>
+
+<dialog id="modal" aria-labelledby="modal-titulo">
+  <h2 id="modal-titulo"></h2>
+  <p class="modal-entrada"></p>
+  <p class="modal-resultado"></p>
+  <button type="button" class="botao" id="fechar">Fechar</button>
+</dialog>
+
+<script>
+const modal = document.getElementById("modal");
+document.getElementById("fechar").onclick = () => modal.close();
+modal.addEventListener("click", e => { if (e.target === modal) modal.close(); });
+
+document.querySelectorAll(".caixa").forEach(caixa => {
+  const entrada = caixa.querySelector("input");
+  const erro = caixa.querySelector(".erro");
+  caixa.addEventListener("submit", e => e.preventDefault());
+  entrada.addEventListener("input", () => { erro.hidden = true; });
+
+  caixa.querySelectorAll("button").forEach(botao => {
+    botao.addEventListener("click", async () => {
+      const resp = await fetch("/api/converter", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({origem: caixa.dataset.origem,
+                              destino: botao.dataset.destino,
+                              valor: entrada.value})
+      });
+      const dados = await resp.json();
+      if (!resp.ok) { erro.textContent = dados.erro; erro.hidden = false; return; }
+      modal.querySelector("#modal-titulo").textContent = `${dados.origem} para ${dados.destino}`;
+      modal.querySelector(".modal-entrada").textContent =
+        `${dados.entrada} (base ${dados.base_origem}) equivale a`;
+      modal.querySelector(".modal-resultado").textContent = `${dados.resultado} (base ${dados.base_destino})`;
+      modal.showModal();
+    });
+  });
+});
+</script>
+{% endblock %}

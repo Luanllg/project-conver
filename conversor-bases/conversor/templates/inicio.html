@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block titulo %}Início{% endblock %}
+{% block conteudo %}
+<section class="heroi">
+  <p class="heroi-codigo" aria-hidden="true">192 = 11000000 = C0 = 300</p>
+  <h1>O mesmo número, quatro formas de escrever.</h1>
+  <p class="lead">Computadores guardam tudo em bits, mas pessoas leem melhor em outras bases. Entender como passar de uma para outra é a base para ler endereços IP, máscaras de rede, endereços MAC e permissões de arquivos.</p>
+  <a class="botao" href="{{ url_for('pagina_conversor') }}">Abrir o conversor</a>
+</section>
+
+<section class="grade-texto">
+  <article>
+    <h2>Binário (base 2)</h2>
+    <p>Usa só 0 e 1, os dois estados de um circuito. É a linguagem real do hardware e das redes: um endereço IPv4 são 32 bits, e a máscara de sub-rede define onde termina a rede e começa o host.</p>
+  </article>
+  <article>
+    <h2>Decimal (base 10)</h2>
+    <p>A base do dia a dia. Aparece na notação pontuada do IPv4 (192.168.0.1), em portas de serviço (80, 443) e em qualquer valor que uma pessoa precise digitar ou conferir.</p>
+  </article>
+  <article>
+    <h2>Hexadecimal (base 16)</h2>
+    <p>Cada dígito vale exatamente 4 bits, então um byte cabe em dois dígitos. Por isso aparece em endereços MAC, IPv6, cores em CSS e dumps de memória.</p>
+  </article>
+  <article>
+    <h2>Octal (base 8)</h2>
+    <p>Cada dígito vale 3 bits. Sobrevive nas permissões de arquivos em Unix/Linux: o 755 do <code>chmod</code> é rwx r-x r-x escrito em octal.</p>
+  </article>
+</section>
+{% endblock %}
